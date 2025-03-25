@@ -819,13 +819,10 @@
                 (if (= (length args) 2)
                     (apply orig-fun args)
                   (message "Wrong number of arguments for which-key function"))))
-  ;; Use a longer delay (2 seconds) to ensure everything is loaded
+  ;; Use a timer to ensure everything is loaded
   (run-with-idle-timer 2 nil (lambda ()
-                              (global-devil-mode 1))))
-
-  
-  ;; Load which-key replacements after global-devil-mode
-  (global-devil-mode)
+                               (global-devil-mode 1)))
+  ;; Ensure which-key replacements are set up correctly
   (with-eval-after-load 'which-key
     (which-key-add-key-based-replacements
       "C-c w" "writing"
