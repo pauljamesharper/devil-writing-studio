@@ -108,6 +108,16 @@
 ;;   (line-spacing 3)
 ;;   (spacious-padding-mode 1))
 
+;; Nerd Icons
+;; This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
+(use-package nerd-icons
+  :ensure t)
+
+(use-package nerd-icons-dired
+  :ensure t
+  :hook (dired-mode . nerd-icons-dired-mode))
+
+
 ;; Modus and EF Themes
 
 (use-package modus-themes
@@ -840,6 +850,23 @@
   :bind
   (("C-c a" . org-agenda)))
 
+;; Khalel
+
+(use-package khalel
+  :ensure t
+  :after org
+  :config
+  (khalel-add-capture-template)
+  (require 'khalel-icalendar))
+(setq khalel-khal-command "~/.local/bin/khal")
+(setq khalel-vdirsyncer-command "~/.local/bin/vdirsyncer")
+(setq khalel-capture-key "e")
+(setq org-directory "~/Dropbox/Documents/notes")
+(setq khalel-import-org-file (concat org-directory "/" "calendar.org"))
+(setq khalel-import-org-file-confirm-overwrite nil)
+(setq khalel-import-end-date "+90d")
+
+
 ;; FILE MANAGEMENT
 
 (use-package dired
@@ -926,22 +953,6 @@
   "Face for repeatable keys in devil-mode."
   :group 'devil)
 
-;; Ensure shadow face exists properly
-;; (unless (facep 'shadow)
-;;   (defface shadow
-;;     '((((class color) (min-colors 88) (background light))
-;;        :foreground "grey50")
-;;       (((class color) (min-colors 88) (background dark))
-;;        :foreground "grey70")
-;;       (((class color) (min-colors 16) (background light))
-;;        :foreground "grey50")
-;;       (((class color) (min-colors 16) (background dark))
-;;        :foreground "grey70")
-;;       (((class color) (min-colors 8))
-;;        :foreground "gray")
-;;       (t :foreground "gray"))
-;;     "Face used for shadow text, which appears as a shadow of another piece of text."
-;;     :group 'basic-faces))
 
 (run-with-idle-timer 1 nil (lambda ()
                              (when (fboundp 'global-devil-mode)
@@ -986,3 +997,14 @@
       ",w d" "denote"
       "C-c w x" "explore"
       ",w x" "explore")))
+
+;; For blocks
+(setq org-structure-template-alist
+        '(("s" . "src")
+          ("e" . "src emacs-lisp")
+          ("E" . "src emacs-lisp :results value code :lexical t")
+          ("t" . "src emacs-lisp :tangle FILENAME")
+          ("T" . "src emacs-lisp :tangle FILENAME :mkdirp yes")
+          ("x" . "example")
+          ("X" . "export")
+          ("q" . "quote")))
