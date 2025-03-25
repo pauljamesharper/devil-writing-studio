@@ -102,10 +102,10 @@
 
 ;; Spacious padding
 
-(use-package spacious-padding
-  :custom
-  (line-spacing 3)
-  (spacious-padding-mode 1))
+;; (use-package spacious-padding
+;;   :custom
+;;   (line-spacing 3)
+;;   (spacious-padding-mode 1))
 
 ;; Modus and EF Themes
 
@@ -115,7 +115,10 @@
   (modus-themes-bold-constructs t)
   (modus-themes-mixed-fonts t)
   (modus-themes-to-toggle '(modus-operandi-tinted
-			    modus-vivendi-tinted))
+                          modus-vivendi-tinted))
+  :init
+  ;; Load the dark theme (modus-vivendi-tinted) by default
+  (load-theme 'modus-vivendi-tinted t)
   :bind
   (("C-c w t t" . modus-themes-toggle)
    ("C-c w t m" . modus-themes-select)
@@ -173,10 +176,27 @@
   (marginalia-mode))
 
 ;; Improve keyboard shortcut discoverability
-
+;; Add descriptive label for writing prefix
+;; Improve keyboard shortcut discoverability
 (use-package which-key
   :config
   (which-key-mode)
+  ;; Add descriptive labels for writing prefixes
+  (which-key-add-key-based-replacements
+    "C-c w" "writing"
+    ",w" "writing"
+    "C-c w t" "toggle"
+    ",w t" "toggle"
+    "C-c w s" "spell"
+    ",w s" "spell"
+    "C-c w b" "bibliography"
+    ",w b" "bibliography"
+    "C-c w m" "multimedia"
+    ",w m" "multimedia"
+    "C-c w d" "denote"
+    ",w d" "denote"
+    "C-c w x" "explore"
+    ",w x" "explore")
   :custom
   (which-key-max-description-length 40)
   (which-key-lighter nil)
@@ -750,3 +770,75 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((dot . t))) ; this line activates GraophViz dot
+
+;;; Devil Mode 
+;; Fixed Devil Mode setup
+;; Define the face first with proper inheritance
+(defface devil-repeat-highlighting
+  '((t (:inherit highlight)))
+  "Face for repeatable keys in devil-mode."
+  :group 'devil)
+
+;; Ensure shadow face exists properly
+(unless (facep 'shadow)
+  (defface shadow
+    '((((class color) (min-colors 88) (background light))
+       :foreground "grey50")
+      (((class color) (min-colors 88) (background dark))
+       :foreground "grey70")
+      (((class color) (min-colors 16) (background light))
+       :foreground "grey50")
+      (((class color) (min-colors 16) (background dark))
+       :foreground "grey70")
+      (((class color) (min-colors 8))
+       :foreground "gray")
+      (t :foreground "gray"))
+    "Face used for shadow text, which appears as a shadow of another piece of text."
+    :group 'basic-faces))
+
+(run-with-idle-timer 1 nil (lambda ()
+                             (when (fboundp 'global-devil-mode)
+                               (global-devil-mode -1)
+                               (global-devil-mode 1))))
+
+;; Now load devil mode
+(use-package devil
+  :ensure t
+  :vc (:url "https://github.com/fbrosda/devil"
+       :branch "dev"
+       :rev :newest)
+  :custom
+  (devil-exit-key ".")
+  (devil-all-keys-repeatable t)
+  (devil-highlight-repeatable t)
+  (devil-which-key-support t)
+  :config
+  ;; Correct the advice function issue
+  (advice-add 'devil--which-key-describe-keymap :around
+              (lambda (orig-fun &rest args)
+                (if (= (length args) 2)
+                    (apply orig-fun args)
+                  (message "Wrong number of arguments for which-key function"))))
+  ;; Use a longer delay (2 seconds) to ensure everything is loaded
+  (run-with-idle-timer 2 nil (lambda ()
+                              (global-devil-mode 1))))
+
+  
+  ;; Load which-key replacements after global-devil-mode
+  (global-devil-mode)
+  (with-eval-after-load 'which-key
+    (which-key-add-key-based-replacements
+      "C-c w" "writing"
+      ",w" "writing"
+      "C-c w t" "toggle"
+      ",w t" "toggle"
+      "C-c w s" "spell"
+      ",w s" "spell"
+      "C-c w b" "bibliography"
+      ",w b" "bibliography"
+      "C-c w m" "multimedia"
+      ",w m" "multimedia"
+      "C-c w d" "denote"
+      ",w d" "denote"
+      "C-c w x" "explore"
+      ",w x" "explore")))
