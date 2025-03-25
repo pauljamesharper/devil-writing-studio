@@ -90,6 +90,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(setq inhibit-startup-screen t)
 
 ;; Short answers only please
 
@@ -176,8 +177,6 @@
   (marginalia-mode))
 
 ;; Improve keyboard shortcut discoverability
-;; Add descriptive label for writing prefix
-;; Improve keyboard shortcut discoverability
 (use-package which-key
   :config
   (which-key-mode)
@@ -196,7 +195,37 @@
     "C-c w d" "denote"
     ",w d" "denote"
     "C-c w x" "explore"
-    ",w x" "explore")
+    ",w x" "explore"
+    
+    ;; EMMS music player prefixes and keys
+    "C-c m" "emms music"
+    ",m" "emms music"
+    "C-c m b" "emms-browse-artists"
+    ",m b" "emms-browse-artists"
+    "C-c m p" "emms-goto-current"
+    ",m p" "emms-goto-current"
+    "C-c m a" "emms-add-music-dir"
+    ",m a" "emms-add-music-dir"
+    "C-c m c" "emms-show-current"
+    ",m c" "emms-show-current"
+    "C-c m s" "emms-save-playlist"
+    ",m s" "emms-save-playlist"
+    "C-c m o" "emms-open-playlist"
+    ",m o" "emms-open-playlist"
+    
+    ;; EMMS direct control keys
+    "C-c SPC" "emms-play/pause"
+    "C-c n" "emms-next"
+    "C-c p" "emms-previous"
+    "C-c s" "emms-stop"
+    "C-c +" "emms-volume-up"
+    "C-c -" "emms-volume-down"
+    "C-c r" "emms-toggle-repeat"
+    "C-c >" "emms-speed-up"
+    "C-c <" "emms-speed-down"
+    "C-c ." "emms-speed-reset"
+    "C-c b" "emms-seek-back"
+    "C-c f" "emms-seek-forward")
   :custom
   (which-key-max-description-length 40)
   (which-key-lighter nil)
@@ -354,14 +383,13 @@
   ("C-c w e" . elfeed))
 
 ;; Configure Elfeed with org mode
-
 (use-package elfeed-org
   :config
   (elfeed-org)
   :custom
   (rmh-elfeed-org-files
    (list (concat (file-name-as-directory (getenv "HOME"))
-		 "elfeed.org"))))
+                 "Dropbox/Documents/elfeed.org"))))
 
 ;; Easy insertion of weblinks
 
@@ -370,23 +398,142 @@
   (("C-c w w" . org-web-tools-insert-link-for-url)))
 
 ;; Emacs Multimedia System
-
+;; EMMS configuration with use-package
 (use-package emms
-  :config
-  (require 'emms-setup)
-  (require 'emms-mpris)
+  :ensure t
+  :init
   (emms-all)
-  (emms-default-players)
-  (emms-mpris-enable)
   :custom
-  (emms-browser-covers #'emms-browser-cache-thumbnail-async)
+  (emms-source-file-default-directory "~/Music/")
+  :config
+  (emms-default-players)
+  
+  ;; Define recursive directory functions
+  (defun emms-add-music-directory-recursively ()
+    "Add ~/Music directory recursively to EMMS."
+    (interactive)
+    (emms-add-directory-tree emms-source-file-default-directory))
+  
+  (defun emms-refresh-library ()
+    "Refresh the EMMS library from scratch."
+    (interactive)
+    (emms-clear-cache)
+    (emms-add-music-directory-recursively))
+  
+  ;; MPV player setup
+  (require 'emms-player-mpv)
+  (add-to-list 'emms-player-list 'emms-player-mpv)
+  (setq emms-player-list (cons 'emms-player-mpv 
+                          (remove 'emms-player-mpv emms-player-list)))
+  (setq emms-player-mpv-parameters '("--quiet" "--really-quiet" "--no-audio-display"))
+  
+  ;; Functions for speed control (language learning)
+  (defun emms-player-mpv-speed-up ()
+    "Increase playback speed by 0.1"
+    (interactive)
+    (emms-player-mpv-cmd "add" "speed" "0.1"))
+  
+  (defun emms-player-mpv-speed-down ()
+    "Decrease playback speed by 0.1"
+    (interactive)
+    (emms-player-mpv-cmd "add" "speed" "-0.1"))
+  
+  (defun emms-player-mpv-speed-reset ()
+    "Reset playback speed to normal"
+    (interactive)
+    (emms-player-mpv-cmd "set" "speed" "1.0"))
+  
+  ;; Seek functions for language learning
+  (defun emms-player-mpv-seek-back-5 ()
+    "Seek back 5 seconds"
+    (interactive)
+    (emms-player-mpv-cmd "seek" "-5"))
+  
+  (defun emms-player-mpv-seek-forward-5 ()
+    "Seek forward 5 seconds"
+    (interactive)
+    (emms-player-mpv-cmd "seek" "5"))
+  
+  ;; Additional convenience functions
+  (defun emms-show-current-playing ()
+    "Show what's currently playing in the minibuffer"
+    (interactive)
+    (message "Now playing: %s" (emms-show)))
+  
+  (defun emms-create-bookmark-playlist (name)
+    "Create a named bookmark playlist"
+    (interactive "sPlaylist name: ")
+    (emms-playlist-save 1 name))
+  
+  (defun emms-open-bookmark-playlist (name)
+    "Open a named bookmark playlist"
+    (interactive "sPlaylist name: ")
+    (emms-playlist-load name))
+  
   :bind
-  (("C-c w m b" . emms-browser)
-   ("C-c w m e" . emms)
-   ("C-c w m p" . emms-play-playlist )
-   ("<XF86AudioPrev>" . emms-previous)
-   ("<XF86AudioNext>" . emms-next)
-   ("<XF86AudioPlay>" . emms-pause)))
+  (("C-c SPC" . emms-pause)
+   ("C-c n" . emms-next)
+   ("C-c p" . emms-previous)
+   ("C-c s" . emms-stop)
+   ("C-c +" . emms-volume-raise)
+   ("C-c -" . emms-volume-lower)
+   ("C-c r" . emms-toggle-repeat-track)
+   ("C-c >" . emms-player-mpv-speed-up)
+   ("C-c <" . emms-player-mpv-speed-down)
+   ("C-c ." . emms-player-mpv-speed-reset)
+   ("C-c b" . emms-player-mpv-seek-back-5)
+   ("C-c f" . emms-player-mpv-seek-forward-5)
+   ("C-c m b" . emms-browse-by-artist)
+   ("C-c m p" . emms-playlist-mode-go-to-current-track)
+   ("C-c m a" . emms-add-music-directory-recursively)
+   ("C-c m c" . emms-show-current-playing)
+   ("C-c m s" . emms-create-bookmark-playlist)
+   ("C-c m o" . emms-open-bookmark-playlist)))
+
+;; Evil-mode integration for EMMS
+(use-package evil
+  :ensure t
+  :config
+  (evil-define-key 'normal emms-playlist-mode-map
+    (kbd "p") 'emms-pause
+    (kbd "n") 'emms-next
+    (kbd "P") 'emms-previous
+    (kbd "s") 'emms-stop
+    (kbd "q") 'kill-this-buffer
+    (kbd "+") 'emms-volume-raise
+    (kbd "-") 'emms-volume-lower
+    (kbd "r") 'emms-toggle-repeat-track
+    (kbd "SPC") 'emms-pause
+    (kbd "g r") 'emms-playlist-mode-go-to-current-track
+    (kbd "d") 'emms-playlist-mode-kill-track
+    (kbd "C") 'emms-playlist-clear
+    (kbd ">") 'emms-player-mpv-speed-up
+    (kbd "<") 'emms-player-mpv-speed-down
+    (kbd ".") 'emms-player-mpv-speed-reset
+    (kbd "b") 'emms-player-mpv-seek-back-5
+    (kbd "f") 'emms-player-mpv-seek-forward-5)
+  
+  ;; Optional: Add evil leader keys for EMMS if you use evil-leader
+  (when (fboundp 'evil-leader/set-key)
+    (evil-leader/set-key
+      "m SPC" 'emms-pause
+      "m n" 'emms-next
+      "m p" 'emms-previous
+      "m s" 'emms-stop
+      "m +" 'emms-volume-raise
+      "m -" 'emms-volume-lower
+      "m r" 'emms-toggle-repeat-track
+      "m >" 'emms-player-mpv-speed-up
+      "m <" 'emms-player-mpv-speed-down
+      "m ." 'emms-player-mpv-speed-reset
+      "m b" 'emms-player-mpv-seek-back-5
+      "m f" 'emms-player-mpv-seek-forward-5
+      "m a" 'emms-add-music-directory-recursively
+      "m c" 'emms-show-current-playing
+      "m o" 'emms-open-bookmark-playlist
+      "m B" 'emms-browse-by-artist
+      "m P" 'emms-playlist-mode-go-to-current-track)))
+
 
 (use-package openwith
   :config
@@ -780,21 +927,21 @@
   :group 'devil)
 
 ;; Ensure shadow face exists properly
-(unless (facep 'shadow)
-  (defface shadow
-    '((((class color) (min-colors 88) (background light))
-       :foreground "grey50")
-      (((class color) (min-colors 88) (background dark))
-       :foreground "grey70")
-      (((class color) (min-colors 16) (background light))
-       :foreground "grey50")
-      (((class color) (min-colors 16) (background dark))
-       :foreground "grey70")
-      (((class color) (min-colors 8))
-       :foreground "gray")
-      (t :foreground "gray"))
-    "Face used for shadow text, which appears as a shadow of another piece of text."
-    :group 'basic-faces))
+;; (unless (facep 'shadow)
+;;   (defface shadow
+;;     '((((class color) (min-colors 88) (background light))
+;;        :foreground "grey50")
+;;       (((class color) (min-colors 88) (background dark))
+;;        :foreground "grey70")
+;;       (((class color) (min-colors 16) (background light))
+;;        :foreground "grey50")
+;;       (((class color) (min-colors 16) (background dark))
+;;        :foreground "grey70")
+;;       (((class color) (min-colors 8))
+;;        :foreground "gray")
+;;       (t :foreground "gray"))
+;;     "Face used for shadow text, which appears as a shadow of another piece of text."
+;;     :group 'basic-faces))
 
 (run-with-idle-timer 1 nil (lambda ()
                              (when (fboundp 'global-devil-mode)
