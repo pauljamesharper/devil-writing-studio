@@ -6,6 +6,7 @@
 ;; Load main configuration modules
 (require 'emacs-writing-studio)
 (require 'ews)
+(require 'shell)
 
 ;; Startup echo
 (message "Emacs initialized successfully.")
