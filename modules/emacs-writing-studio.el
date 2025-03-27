@@ -246,6 +246,17 @@
       (which-key-lighter nil)
       (which-key-sort-order 'which-key-description-order))
 
+      ;; Use which-key in a floating side window on the right to avoid bottom row clipping
+      (with-eval-after-load 'which-key
+          (which-key-mode 1)
+          (setq which-key-popup-type 'side-window)
+          (setq which-key-side-window-location 'right)     ;; Float on the right side
+          (setq which-key-side-window-max-width 0.4)       ;; Up to 40% of frame width
+          (setq which-key-max-description-length 45)
+          (setq which-key-min-display-lines 5))
+
+
+
     ;; Contextual menu with right mouse button
 
     (when (display-graphic-p)
