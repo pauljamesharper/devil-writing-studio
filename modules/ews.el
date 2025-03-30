@@ -1,6 +1,6 @@
 ;;; ews.el --- Convenience functions for authors -*- lexical-binding: t; -*-
 
-;; Author: Peter Prevos <peter@prevos.net>
+;; Original Author: Peter Prevos <peter@prevos.net>
 ;; URL: https://github.com/pprevos/emacs-writing-studio
 
 ;;; Commentary:
@@ -10,36 +10,35 @@
 
 ;;; ews.el --- Convenience functions for authors  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025 Peter Prevos
+;; Copyright (C) 2024-2025 Peter Prevos
 
-;; Author: Peter Prevos <peter@prevos.net>
-;; Maintainer: Peter Prevos <peter@prevos.net>
-;; Created: 1 January 2024
-;; Version: 1.0
-;; Keywords: convenience
-;; Homepage: https://lucidmanager.org/tags/emacs/
-;; URL: https://github.com/pprevos/emacs-writing-studio
+;; Original Author: Peter Prevos <peter@prevos.net>
+;; Original URL: https://github.com/pprevos/emacs-writing-studio/
+
+;; Maintainer: Paul James Harper <pauljamesharper@hardhatcriticalrisk.com>
+;; Forked and adapted by Paul James Harper, 2025.
 
 ;; This file is NOT part of GNU Emacs.
-;;
+
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-;;
+
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ;; GNU General Public License for more details.
-;;
+
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program. If not, see <https://www.gnu.org/licenses/>.
-;;
-;;; Commentary:
-;;
-;; Series of convenience functions for Emacs Writing Studio
-;; https://lucidmanager.org/tags/emacs
-;;
+
+;; Emacs Writing Studio init file: https://lucidmanager.org/tags/emacs
+;; This init file is tangled from: documents/ews-book/99-appendix.org
+
+;; This is a fork of the Emacs Writing Studio configuration by Peter Prevos,
+;; adapted and maintained by Paul James Harper for personal use and development.
+
 ;;; Code:
 
 ;; Emacs Writing Studio Customisation
