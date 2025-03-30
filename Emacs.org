@@ -6,6 +6,7 @@
   - init.el
   - modules/emacs-writing-studio.el
   - modules/ews.el
+  - modules/shell.el
 
 ** Early Init Settings :early-init:
 #+begin_src emacs-lisp :tangle early-init.el
@@ -29,11 +30,30 @@
   (require 'emacs-writing-studio)
   (require 'ews)
   (require 'shell)
- 
+
 
   ;; Startup echo
   (message "Emacs initialized successfully.")
 #+end_src
+
+** Auto-tangle Configuration Files
+
+This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
+
+#+begin_src emacs-lisp :tangle init.el
+
+  ;; Automatically tangle our Emacs.org config file when we save it
+  (defun efs/org-babel-tangle-config ()
+    (when (string-equal (buffer-file-name)
+                        (expand-file-name "~/.config/emacs/Emacs.org"))
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
+
+#+end_src
+   
 
 ** Emacs Writing Studio Setup :emacs-writing-studio:
 #+begin_src emacs-lisp :tangle modules/emacs-writing-studio.el
