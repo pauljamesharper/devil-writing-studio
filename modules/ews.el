@@ -49,10 +49,11 @@
   :link '(url-link :tag "Homepage" "https://lucidmanager.org/tags/emacs/"))
 
 (defcustom ews-bibtex-directory
-  (concat (file-name-as-directory (getenv "HOME")) "library")
+  (expand-file-name "~/Dropbox/Documents/library")
   "Location of BibTeX files and attachments."
   :group 'ews
   :type 'directory)
+
 
 (defcustom ews-denote-para-keywords
   '("projects" "areas" "resources" "archives")
