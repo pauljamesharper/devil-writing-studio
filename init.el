@@ -8,7 +8,7 @@
 (require 'ews)
 (require 'shell)
 
-   
+
 
 ;; Startup echo
 (message "Emacs initialized successfully.")

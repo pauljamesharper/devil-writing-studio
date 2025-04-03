@@ -3,12 +3,12 @@
 ;; Original Author: Peter Prevos <peter@prevos.net>
 ;; URL: https://github.com/pprevos/emacs-writing-studio
 
-                             ;;; Commentary:
+                                     ;;; Commentary:
 ;; This file contains the core configuration for the Devil's Emacs Writing Studio.
 
-                 ;;; Code:
+                         ;;; Code:
 
-                 ;;; emacs-writing-studio.el --- Devil's Emacs Writing Studio init -*- lexical-binding: t; -*-
+                         ;;; emacs-writing-studio.el --- Devil's Emacs Writing Studio init -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024-2025 Peter Prevos
 
@@ -40,7 +40,7 @@
 ;; adapted and maintained by Paul James Harper for personal use and development.
 
 ;;
-                             ;;; Code:
+                                     ;;; Code:
 
 ;; Emacs 29 or higher?
 
@@ -114,7 +114,7 @@
    "hunspell"
    "git"))
 
-                         ;;; Dashboard
+                                 ;;; Dashboard
 
 (use-package dashboard
   :ensure t
@@ -174,7 +174,7 @@
 
 
 
-                             ;;; LOOK AND FEEL
+                                     ;;; LOOK AND FEEL
 
 (tool-bar-mode -1)                  
 (menu-bar-mode -1)
@@ -330,7 +330,7 @@
    ("C-h k" . helpful-key)
    ("C-h v" . helpful-variable)))
 
-                             ;;; Text mode settings
+                                     ;;; Text mode settings
 
 (use-package text-mode
   :ensure
@@ -361,7 +361,7 @@
   (("C-c w s s" . ispell)
    ("C-;"       . flyspell-auto-correct-previous-word)))
 
-                             ;;; Ricing Org mode
+                                     ;;; Ricing Org mode
 
 (use-package org
   :custom
@@ -457,24 +457,6 @@
   :bind
   (("C-c w b o" . citar-open)))
 
-;; Read RSS feeds with Elfeed
-
-(use-package elfeed
-  :custom
-  (elfeed-db-directory
-   (expand-file-name "elfeed" user-emacs-directory))
-  (elfeed-show-entry-switch 'display-buffer)
-  :bind
-  ("C-c w e" . elfeed))
-
-;; Configure Elfeed with org mode
-(use-package elfeed-org
-  :config
-  (elfeed-org)
-  :custom
-  (rmh-elfeed-org-files
-   (list (concat (file-name-as-directory (getenv "HOME"))
-                 "Dropbox/Documents/elfeed.org"))))
 
 ;; Easy insertion of weblinks
 
@@ -484,7 +466,7 @@
 
 
 
-;;; Bongo - Flexible Media Player
+        ;;; Bongo - Flexible Media Player
 (use-package bongo
   :ensure t
   :config
@@ -548,10 +530,10 @@
   ;; Playback speed control
   (define-key my-bongo-map (kbd "<") 
               (lambda () (interactive) 
-		(bongo-custom-backend-action 'mpv "speed-set" "0.9")))
+        	(bongo-custom-backend-action 'mpv "speed-set" "0.9")))
   (define-key my-bongo-map (kbd ">") 
               (lambda () (interactive) 
-		(bongo-custom-backend-action 'mpv "speed-set" "1.1")))
+        	(bongo-custom-backend-action 'mpv "speed-set" "1.1")))
   
   ;; Add which-key labels
   (with-eval-after-load 'which-key
@@ -857,38 +839,38 @@
    'org-latex-classes
    '("ews"
      "\\documentclass[11pt, twoside, hidelinks]{memoir}
-                                   \\setstocksize{9.25in}{7.5in}
-                                   \\settrimmedsize{\\stockheight}{\\stockwidth}{*}
-                                   \\setlrmarginsandblock{1.5in}{1in}{*} 
-                                   \\setulmarginsandblock{1in}{1.5in}{*}
-                                   \\checkandfixthelayout
-                                   \\layout
-                                   \\setcounter{tocdepth}{0}
-                                   \\setsecnumdepth{subsection}
-                                   \\renewcommand{\\baselinestretch}{1.2}
-                                   \\setheadfoot{0.5in}{0.75in}
-                                   \\setlength{\\footskip}{0.8in}
-                                   \\chapterstyle{bianchi}
-                                   \\renewcommand{\\beforechapskip}{-30pt}
-                                   \\setsecheadstyle{\\normalfont \\raggedright \\textbf}
-                                   \\setsubsecheadstyle{\\normalfont \\raggedright \\emph}
-                                   \\setsubsubsecheadstyle{\\normalfont\\centering}
-                                   \\pagestyle{myheadings}
-                                   \\usepackage[font={small, it}]{caption}
-                                   \\usepackage{ccicons}
-                                   \\usepackage{ebgaramond}
-                                   \\usepackage[authoryear]{natbib}
-                                   \\bibliographystyle{apalike}
-                                   \\usepackage{svg}
-                                   \\hyphenation{mini-buffer}
-                                   \\renewcommand{\\LaTeX}{LaTeX}
-                                   \\renewcommand{\\TeX}{TeX}"
+                                           \\setstocksize{9.25in}{7.5in}
+                                           \\settrimmedsize{\\stockheight}{\\stockwidth}{*}
+                                           \\setlrmarginsandblock{1.5in}{1in}{*} 
+                                           \\setulmarginsandblock{1in}{1.5in}{*}
+                                           \\checkandfixthelayout
+                                           \\layout
+                                           \\setcounter{tocdepth}{0}
+                                           \\setsecnumdepth{subsection}
+                                           \\renewcommand{\\baselinestretch}{1.2}
+                                           \\setheadfoot{0.5in}{0.75in}
+                                           \\setlength{\\footskip}{0.8in}
+                                           \\chapterstyle{bianchi}
+                                           \\renewcommand{\\beforechapskip}{-30pt}
+                                           \\setsecheadstyle{\\normalfont \\raggedright \\textbf}
+                                           \\setsubsecheadstyle{\\normalfont \\raggedright \\emph}
+                                           \\setsubsubsecheadstyle{\\normalfont\\centering}
+                                           \\pagestyle{myheadings}
+                                           \\usepackage[font={small, it}]{caption}
+                                           \\usepackage{ccicons}
+                                           \\usepackage{ebgaramond}
+                                           \\usepackage[authoryear]{natbib}
+                                           \\bibliographystyle{apalike}
+                                           \\usepackage{svg}
+                                           \\hyphenation{mini-buffer}
+                                           \\renewcommand{\\LaTeX}{LaTeX}
+                                           \\renewcommand{\\TeX}{TeX}"
      ("\\chapter{%s}" . "\\chapter*{%s}")
      ("\\section{%s}" . "\\section*{%s}")
      ("\\subsection{%s}" . "\\subsection*{%s}")
      ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
-                             ;;; ADMINISTRATION
+                                     ;;; ADMINISTRATION
 
 ;; Bind org agenda command and custom agenda
 
@@ -999,15 +981,8 @@
  'org-babel-load-languages
  '((dot . t))) ; this line activates GraophViz dot
 
-                            ;;; Devil Mode 
-;; Fixed Devil Mode setup
-;; Define the face first with proper inheritance
-(defface devil-repeat-highlighting
-  '((t (:inherit highlight)))
-  "Face for repeatable keys in devil-mode."
-  :group 'devil)
+                                    ;;; Devil Mode 
 
-;; Now load devil mode
 (use-package devil
   :ensure t
   :vc (:url "https://github.com/fbrosda/devil"
@@ -1019,17 +994,22 @@
   (devil-highlight-repeatable t)
   (devil-which-key-support t)
   :config
-  ;; Correct the advice function issue
-  (advice-add 'devil--which-key-describe-keymap :around
-              (lambda (orig-fun &rest args)
-                (if (= (length args) 2)
-                    (apply orig-fun args)
-                  (message "Wrong number of arguments for which-key function"))))
+  ;; New advice fix for the proper function
+  (defun devil--enable-which-key-support ()
+    "Enable which-key support for devil-mode."
+    (when devil-which-key-support
+      (require 'which-key)
+      (which-key-add-key-based-replacements "," "Devil")))
+  
+  ;; Replace the problematic function
+  (advice-remove 'devil--which-key-describe-keymap 'devil--which-key-describe-keymap)
+  
   ;; Use a timer to ensure everything is loaded properly
   (run-with-idle-timer 5 nil (lambda ()
                                (message "Activating devil-mode...")
                                (global-devil-mode -1)
                                (global-devil-mode 1)))
+  
   ;; Ensure which-key replacements are set up correctly
   (with-eval-after-load 'which-key
     (which-key-add-key-based-replacements
@@ -1048,7 +1028,9 @@
       "C-c w x" "explore"
       ",w x" "explore"
       "C-x w" "windows"
-      ",x w" "windows")))
+      ",x w" "windows"
+      "C-c n" "Notes"
+      ",n" "Notes")))
 
 ;; For blocks
 (setq org-structure-template-alist
@@ -1061,7 +1043,7 @@
         ("X" . "export")
         ("q" . "quote")))
 
-            ;;; ----- TODO Configuration -----
+                    ;;; ----- TODO Configuration -----
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d!)")))
@@ -1072,7 +1054,7 @@
         ("WAIT" . (:foreground "HotPink2" :weight bold))
         ("BACK" . (:foreground "MediumPurple3" :weight bold))))
 
-              ;;; ----- Context Tags -----
+                      ;;; ----- Context Tags -----
 
 (setq-default org-tag-alist
               '((:startgroup)
@@ -1117,7 +1099,7 @@
 ;; Only make context tags inheritable (what about noexport?)
 (setq org-use-tag-inheritance "^@")
 
-              ;;; ----- Time Tracking -----
+                      ;;; ----- Time Tracking -----
 
 ;; Clock in on the current task when setting a timer
 (add-hook 'org-timer-set-hook #'org-clock-in)
@@ -1125,7 +1107,7 @@
 ;; Clock out of the current task when the timer is complete
 (add-hook 'org-timer-done-hook #'org-clock-out)
 
-              ;;; ----- Agenda Configuration -----
+                      ;;; ----- Agenda Configuration -----
 
 (defvar dw/base-agenda-files '("inbox.org" "calendar.org")
   "The base agenda files that will always be included.")
@@ -1140,7 +1122,7 @@
       org-log-into-drawer t)
 
 
-              ;;; ----- Denote Integration -----
+                      ;;; ----- Denote Integration -----
 
 (defun dw/refresh-agenda-files ()
   (interactive)
@@ -1168,6 +1150,17 @@
   (add-hook 'denote-after-rename-file-hook #'dw/refresh-agenda-files)
   (add-hook 'denote-after-new-note-hook #'dw/refresh-agenda-files))
 
+;; Add which-key label for the notes prefix
+(with-eval-after-load 'which-key
+  (which-key-add-key-based-replacements
+    "C-c n" "Notes"
+    "C-c n w" "Weekly note"))
+
+;; Also add the devil-mode version
+(with-eval-after-load 'devil
+  (which-key-add-key-based-replacements
+    ",n" "Notes"
+    ",n w" "Weekly note"))
 
 ;; Ledger
 (use-package ledger-mode
@@ -1185,5 +1178,284 @@
   (add-hook 'ledger-mode-hook #'flycheck-mode))
 
 
+;; Ensure multimedia keybindings are properly set
+(with-eval-after-load 'which-key
+  (which-key-add-key-based-replacements
+    "C-c m" "Multimedia"
+    ",m" "Multimedia"))
+
+(with-eval-after-load 'devil
+  (which-key-add-key-based-replacements
+    ",m" "Multimedia"))
+
+;; Read RSS feeds with Elfeed
+
+(use-package elfeed
+  :custom
+  (elfeed-db-directory
+   (expand-file-name "elfeed" user-emacs-directory))
+  (elfeed-show-entry-switch 'display-buffer)
+  :bind
+  ("C-c w e" . elfeed))
+
+;; Configure Elfeed with org mode
+(use-package elfeed-org
+  :config
+  (elfeed-org)
+  :custom
+  (rmh-elfeed-org-files
+   (list (concat (file-name-as-directory (getenv "HOME"))
+                 "Dropbox/Documents/elfeed.org"))))
+
+      ;;; Enhanced Elfeed YouTube Configuration with Fixed Multimedia Keybindings
+
+;; This extension to your elfeed setup adds better YouTube feed management
+;; and integrates with your existing Bongo configuration
+;; WITH FIXED MULTIMEDIA KEYBINDINGS (C-c m and ,m in devil mode)
+
+;; 1. Core Elfeed enhancements for YouTube
+(with-eval-after-load 'elfeed
+  ;; Add a specific tag for YouTube entries to make filtering easier
+  (add-hook 'elfeed-new-entry-hook
+            (lambda (entry)
+              (when (string-match-p "\\(youtube\\.com\\|youtu\\.be\\)" (elfeed-entry-link entry))
+                (elfeed-tag entry 'youtube))))
+
+  ;; Face for YouTube entries - makes them stand out in the feed list
+  (defface elfeed-youtube
+    '((t :foreground "#FF0000"))
+    "Face for YouTube entries in Elfeed"
+    :group 'elfeed)
+
+  ;; Add face to the entry list format
+  (push '(youtube elfeed-youtube)
+        elfeed-search-face-alist)
+
+  ;; Enhanced keybindings for YouTube workflows - using different keys
+  ;; to avoid conflicts with your multimedia setup
+  (define-key elfeed-search-mode-map (kbd "v") 'pjh/elfeed-play-with-bongo)
+  (define-key elfeed-search-mode-map (kbd "V") 'pjh/elfeed-add-to-bongo)
+  
+  ;; Filter management keys
+  (define-key elfeed-search-mode-map (kbd "Y") 
+              (lambda () (interactive) (elfeed-search-set-filter "+youtube +unread")))
+  (define-key elfeed-search-mode-map (kbd "A") 
+              (lambda () (interactive) (elfeed-search-set-filter "+unread")))
+  
+  ;; Default filter to show unread entries
+  (setq elfeed-search-filter "+unread"))
+
+;; 2. YouTube playback functions (previously defined)
+(defun pjh/elfeed-play-with-bongo ()
+  "Play the YouTube video of the current Elfeed entry with Bongo."
+  (interactive)
+  (let ((entry (elfeed-search-selected :single)))
+    (if entry
+        (let ((url (elfeed-entry-link entry)))
+          (if (and url (string-match-p "https?://\\(www\\.\\)?youtube\\.com\\|youtu\\.be" url))
+              (progn
+                ;; Ensure Bongo buffer exists
+                (unless (get-buffer "*Bongo Playlist*")
+                  (bongo))
+                (with-current-buffer (or (get-buffer "*Bongo Playlist*")
+                                         (current-buffer))
+                  ;; Add to Bongo playlist
+                  (bongo-insert-uri url)
+                  ;; Play if not already playing
+                  (unless (bongo-playing-p)
+                    (bongo-play-line)))
+                ;; Mark as read in Elfeed
+                (elfeed-search-untag-all-unread)
+                (message "Added YouTube video to Bongo: %s" url))
+            (message "The URL is not a YouTube link: %s" url)))
+      (message "No entry selected in Elfeed."))))
+
+(defun pjh/elfeed-add-to-bongo ()
+  "Add the YouTube video of the current Elfeed entry to Bongo playlist without playing."
+  (interactive)
+  (let ((entry (elfeed-search-selected :single)))
+    (if entry
+        (let ((url (elfeed-entry-link entry)))
+          (if (and url (string-match-p "https?://\\(www\\.\\)?youtube\\.com\\|youtu\\.be" url))
+              (progn
+                ;; Ensure Bongo buffer exists
+                (unless (get-buffer "*Bongo Playlist*")
+                  (bongo))
+                (with-current-buffer (or (get-buffer "*Bongo Playlist*")
+                                         (current-buffer))
+                  ;; Add to Bongo playlist
+                  (bongo-insert-uri url))
+                ;; Mark as read in Elfeed
+                (elfeed-search-untag-all-unread)
+                (message "Added YouTube video to Bongo playlist: %s" url))
+            (message "The URL is not a YouTube link: %s" url)))
+      (message "No entry selected in Elfeed."))))
+
+;; 3. Helper function to quickly add YouTube channel feeds
+(defun pjh/elfeed-add-youtube-channel (channel-id)
+  "Add a YouTube channel to elfeed-org config by channel ID or username.
+      CHANNEL-ID can be either a channel ID starting with UC or a username."
+  (interactive "sEnter YouTube channel ID or username: ")
+  (let* ((is-id (string-prefix-p "UC" channel-id))
+         (feed-url (if is-id
+                       (format "https://www.youtube.com/feeds/videos.xml?channel_id=%s" channel-id)
+                     (format "https://www.youtube.com/feeds/videos.xml?user=%s" channel-id)))
+         (elfeed-file (concat (file-name-as-directory (getenv "HOME"))
+                              "Dropbox/Documents/elfeed.org"))
+         (channel-info (if is-id
+                           (format "Channel ID: %s" channel-id)
+                         (format "Username: %s" channel-id))))
+    
+    ;; Request channel information to get the title
+    (url-retrieve feed-url
+                  (lambda (status)
+                    (if (plist-get status :error)
+                        (message "Error fetching channel info: %s" (plist-get status :error))
+                      ;; Parse the response to get the channel title
+                      (goto-char (point-min))
+                      (re-search-forward "<title>\\(.*?\\)</title>" nil t)
+                      (let ((channel-title (match-string 1)))
+                        ;; Add to elfeed.org file
+                        (with-current-buffer (find-file-noselect elfeed-file)
+                          (goto-char (point-max))
+                          ;; Find the YouTube heading or create it
+                          (unless (re-search-backward "^\\*+ YouTube" nil t)
+                            (goto-char (point-max))
+                            (insert "\n* YouTube\n"))
+                          (end-of-line)
+                          (insert (format "\n** %s\n   :PROPERTIES:\n   :ID: %s\n   :END:\n   %s" 
+                                          channel-title
+                                          channel-id
+                                          feed-url))
+                          (save-buffer)
+                          (kill-buffer))
+                        (message "Added %s to elfeed.org" channel-title)
+                        ;; Refresh elfeed-org
+                        (when (featurep 'elfeed-org)
+                          (elfeed-org-export-opml)
+                          (elfeed-org))))))
+    (message "Processing channel %s..." channel-id)))
+
+;; 4. YouTube feed management transient menu
+(use-package transient
+  :ensure t
+  :config
+  (transient-define-prefix pjh/youtube-feeds-menu ()
+    "Menu for YouTube feed management."
+    ["YouTube Feed Actions"
+     ("a" "Add YouTube channel" pjh/elfeed-add-youtube-channel)
+     ("y" "Show only YouTube" (lambda () (interactive) 
+                                (elfeed-search-set-filter "+youtube +unread")))
+     ("f" "Filter YouTube..." (lambda () (interactive)
+                                (elfeed-search-set-filter 
+                                 (concat "+youtube +unread " 
+                                         (read-string "Additional filter terms: ")))))
+     ("r" "Reset filter" (lambda () (interactive) 
+                           (elfeed-search-set-filter "+unread")))
+     ("o" "Open elfeed-org file" (lambda () (interactive)
+                                   (find-file (concat (file-name-as-directory (getenv "HOME"))
+                                                      "Dropbox/Documents/elfeed.org"))))
+     ("u" "Update feeds" elfeed-update)
+     ]
+    ["Bongo Integration"
+     ("p" "Play in Bongo" pjh/elfeed-play-with-bongo)
+     ("q" "Queue in Bongo" pjh/elfeed-add-to-bongo)
+     ("b" "Open Bongo" bongo)
+     ])
+  
+  ;; Add key binding for the YouTube menu - using different key
+  (with-eval-after-load 'elfeed
+    (define-key elfeed-search-mode-map (kbd "C-c y") 'pjh/youtube-feeds-menu)))
+
+;; 5. Customize Bongo for better YouTube experience
+(with-eval-after-load 'bongo
+  ;; Ensure MPV uses yt-dlp with good default quality settings
+  (when (executable-find "mpv")
+    (setq bongo-mpv-program-arguments 
+          (append bongo-mpv-program-arguments 
+                  '("--ytdl-format=bestvideo[height<=720]+bestaudio/best[height<=720]"
+                    "--force-window=yes"
+                    "--keep-open=yes"))))
+  
+  ;; Add function to get video title when playing
+  (defun pjh/bongo-get-youtube-title ()
+    "Get the title of the currently playing YouTube video."
+    (interactive)
+    (when (bongo-playing-p)
+      (let ((filename (bongo-playlist-line-file bongo-playing-line)))
+        (when (and filename (string-match-p "\\(youtube\\.com\\|youtu\\.be\\)" filename))
+          (message "Playing: %s" 
+                   (shell-command-to-string 
+                    (format "yt-dlp --get-title %s 2>/dev/null" 
+                            (shell-quote-argument filename)))))))))
+
+;; 6. Proper keybinding setup that doesn't conflict with multimedia keys
+;; Preserve your C-c m (multimedia) map and add our YouTube bindings elsewhere
+(with-eval-after-load 'which-key
+  ;; Add our YouTube menu hint
+  (which-key-add-key-based-replacements "C-c y" "YouTube menu")
+  
+  ;; Make sure we don't override the multimedia map
+  (which-key-add-key-based-replacements "C-c m" "Multimedia")
+  (which-key-add-key-based-replacements ",m" "Multimedia"))
+
+;; 7. Proper devil-mode integration that preserves your multimedia keys
+(with-eval-after-load 'devil
+  ;; Add our YouTube menu hint
+  (which-key-add-key-based-replacements ",y" "YouTube menu")
+  
+  ;; Make sure multimedia map is preserved
+  (which-key-add-key-based-replacements ",m" "Multimedia"))
+
+;; 8. Additional elfeed-org integration
+(with-eval-after-load 'elfeed-org
+  ;; Helper to convert YouTube URLs to feed URLs
+  (defun pjh/youtube-url-to-feed-url (url)
+    "Convert a standard YouTube URL to its RSS feed URL."
+    (interactive "sYouTube URL: ")
+    (cond
+     ;; Channel URL format
+     ((string-match "youtube\\.com/channel/\\(UC[^/?\n]+\\)" url)
+      (let ((channel-id (match-string 1 url)))
+        (message "Feed URL: https://www.youtube.com/feeds/videos.xml?channel_id=%s" channel-id)
+        (kill-new (format "https://www.youtube.com/feeds/videos.xml?channel_id=%s" channel-id))))
+     
+     ;; User URL format
+     ((string-match "youtube\\.com/\\(?:user\\|c\\)/\\([^/?\n]+\\)" url)
+      (let ((username (match-string 1 url)))
+        (message "Feed URL: https://www.youtube.com/feeds/videos.xml?user=%s" username)
+        (kill-new (format "https://www.youtube.com/feeds/videos.xml?user=%s" username))))
+     
+     ;; Couldn't parse
+     (t (message "Could not parse YouTube URL format")))))
+
+;; 9. Global keybindings for YouTube functionality
+;; Create a dedicated keymap that doesn't interfere with multimedia
+(define-prefix-command 'my-youtube-map)
+(global-set-key (kbd "C-c y") 'my-youtube-map)
+
+;; Add YouTube commands to this map
+(define-key my-youtube-map (kbd "a") 'pjh/elfeed-add-youtube-channel)
+(define-key my-youtube-map (kbd "u") 'pjh/youtube-url-to-feed-url)
+(define-key my-youtube-map (kbd "e") 'elfeed)
+(define-key my-youtube-map (kbd "m") 'pjh/youtube-feeds-menu)
+
+;; Add which-key descriptions for these commands
+(with-eval-after-load 'which-key
+  (which-key-add-key-based-replacements
+    "C-c y a" "Add YouTube channel"
+    "C-c y u" "Convert URL to feed"
+    "C-c y e" "Open Elfeed"
+    "C-c y m" "YouTube menu"))
+
+;; Make sure devil-mode knows about these bindings too
+(with-eval-after-load 'devil
+  (which-key-add-key-based-replacements
+    ",y a" "Add YouTube channel"
+    ",y u" "Convert URL to feed"
+    ",y e" "Open Elfeed"
+    ",y m" "YouTube menu"))
+
+
 (provide 'emacs-writing-studio)
-                             ;;; emacs-writing-studio.el ends here
+                                     ;;; emacs-writing-studio.el ends here
